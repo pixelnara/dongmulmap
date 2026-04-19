@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>검진-360 — 반려동물 병원 찾기</title>
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
+<style>
+  :root {
+    --bg: #F5F6F8;
+    --card: #FFFFFF;
+    --ink-1: #0B1220;
+    --ink-2: #4A5568;
+    --ink-3: #8A95A5;
+    --line: #E6E8EC;
+    --brand: #2563EB;
+    --brand-50: #EEF4FF;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; font-family: "Pretendard Variable", Pretendard, -apple-system, system-ui, sans-serif; background: var(--bg); color: var(--ink-1); -webkit-font-smoothing: antialiased; }
+  .wrap { max-width: 980px; margin: 0 auto; padding: 80px 32px 120px; }
+  .eyebrow { font-size: 12px; letter-spacing: 0.14em; color: var(--ink-3); text-transform: uppercase; font-weight: 600; margin-bottom: 16px; }
+  h1 { font-size: 44px; font-weight: 700; letter-spacing: -0.02em; line-height: 1.15; margin: 0 0 20px; }
+  .lede { font-size: 17px; line-height: 1.6; color: var(--ink-2); max-width: 620px; margin: 0 0 48px; }
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  @media (max-width: 720px) { .grid { grid-template-columns: 1fr; } }
+  .card {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    padding: 28px;
+    transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+  }
+  .card:hover { transform: translateY(-2px); box-shadow: 0 12px 32px -16px rgba(17,24,39,.12); border-color: #D7DCE4; }
+  .card .tag { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 600; color: var(--brand); background: var(--brand-50); padding: 6px 10px; border-radius: 999px; margin-bottom: 18px; }
+  .card h2 { font-size: 22px; margin: 0 0 8px; letter-spacing: -0.01em; }
+  .card p { margin: 0 0 20px; color: var(--ink-2); font-size: 14px; line-height: 1.55; }
+  .card .arrow { font-size: 13px; color: var(--ink-1); font-weight: 600; display: inline-flex; align-items: center; gap: 6px; }
+  .preview { aspect-ratio: 16/10; border-radius: 12px; background: linear-gradient(135deg,#EEF4FF,#F5F6F8); margin-bottom: 22px; display: grid; place-items: center; color: var(--ink-3); font-size: 12px; border: 1px solid var(--line); overflow: hidden; position: relative; }
+  .preview svg { width: 72%; height: 72%; }
+  .foot { margin-top: 64px; color: var(--ink-3); font-size: 13px; }
+  .divider { height: 1px; background: var(--line); margin: 40px 0; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="eyebrow">검진-360 · Case Study</div>
+    <h1>반려동물 병원 찾기<br/>하이파이 프로토타입</h1>
+    <p class="lede">지역·전문과·지도 세 축으로 병원을 탐색하는 인터랙티브 프로토타입과 이를 뒷받침하는 디자인 시스템입니다. 레퍼런스 와이어프레임을 바탕으로 컬러·타이포·컴포넌트를 정제해 구축했습니다.</p>
+
+    <div class="grid">
+      <a class="card" href="prototype.html">
+        <div class="preview">
+          <svg viewBox="0 0 160 100" xmlns="http://www.w3.org/2000/svg">
+            <rect x="10" y="10" width="60" height="80" rx="8" fill="#fff" stroke="#D7DCE4"/>
+            <rect x="16" y="18" width="30" height="4" rx="2" fill="#0B1220"/>
+            <rect x="16" y="26" width="20" height="3" rx="1.5" fill="#8A95A5"/>
+            <rect x="16" y="36" width="48" height="22" rx="4" fill="#EEF4FF"/>
+            <rect x="80" y="10" width="60" height="80" rx="8" fill="#fff" stroke="#D7DCE4"/>
+            <rect x="86" y="40" width="48" height="44" rx="6" fill="#EEF4FF" stroke="#2563EB" stroke-opacity=".3"/>
+            <rect x="92" y="48" width="20" height="3" rx="1.5" fill="#2563EB"/>
+          </svg>
+        </div>
+        <span class="tag">● Prototype</span>
+        <h2>인터랙티브 프로토타입</h2>
+        <p>리스트 · 지역 선택 바텀시트 · 지도 전환 · 병원 상세까지 실제로 눌러볼 수 있는 흐름.</p>
+        <span class="arrow">프로토타입 열기 →</span>
+      </a>
+
+      <a class="card" href="design-system.html">
+        <div class="preview">
+          <svg viewBox="0 0 160 100" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="28" cy="30" r="14" fill="#2563EB"/>
+            <circle cx="58" cy="30" r="14" fill="#0B1220"/>
+            <circle cx="88" cy="30" r="14" fill="#8A95A5"/>
+            <circle cx="118" cy="30" r="14" fill="#EEF4FF" stroke="#D7DCE4"/>
+            <rect x="14" y="56" width="60" height="6" rx="3" fill="#0B1220"/>
+            <rect x="14" y="68" width="44" height="4" rx="2" fill="#8A95A5"/>
+            <rect x="14" y="78" width="90" height="3" rx="1.5" fill="#D7DCE4"/>
+            <rect x="14" y="85" width="70" height="3" rx="1.5" fill="#D7DCE4"/>
+          </svg>
+        </div>
+        <span class="tag" style="color:#0B1220;background:#EDEFF3;">◆ Design System</span>
+        <h2>디자인 시스템</h2>
+        <p>컬러 토큰 · 타이포 스케일 · 컴포넌트 (카드, 칩, 탭, 버튼, 맵 핀, 바텀시트).</p>
+        <span class="arrow">시스템 보기 →</span>
+      </a>
+    </div>
+
+    <div class="divider"></div>
+    <div class="foot">Pretendard · oklch · 반응형 / 모바일 뷰포트 (390 × 844)에서 최적</div>
+  </div>
+</body>
+</html>

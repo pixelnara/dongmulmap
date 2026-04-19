@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>검진-360 · Design System</title>
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
+<link rel="stylesheet" href="tokens.css" />
+<style>
+  body { background: var(--c-bg); }
+  .page { max-width: 1100px; margin: 0 auto; padding: 64px 40px 120px; }
+  .top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; }
+  .back { font-size: 13px; color: var(--c-ink-2); text-decoration: none; }
+  .back:hover { color: var(--c-ink-1); }
+  .eyebrow { font-size: 12px; letter-spacing: 0.14em; color: var(--c-ink-3); text-transform: uppercase; font-weight: 600; margin-bottom: 8px; }
+  h1 { font-size: 40px; font-weight: 700; letter-spacing: -0.02em; margin: 0 0 12px; }
+  .sub { color: var(--c-ink-2); font-size: 16px; max-width: 580px; margin: 0 0 56px; line-height: 1.55; }
+
+  /* section */
+  section { margin-bottom: 72px; }
+  .section-head { display: flex; align-items: baseline; gap: 16px; margin-bottom: 28px; padding-bottom: 12px; border-bottom: 1px solid var(--c-line); }
+  .section-head h2 { font-size: 22px; margin: 0; font-weight: 700; letter-spacing: -0.01em; }
+  .section-head .meta { font-size: 12px; color: var(--c-ink-3); font-variant-numeric: tabular-nums; }
+
+  /* Colors */
+  .swatch-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 16px; }
+  @media (max-width: 780px) { .swatch-grid { grid-template-columns: repeat(3, 1fr); } }
+  .swatch { }
+  .chip { aspect-ratio: 1; border-radius: 14px; border: 1px solid var(--c-line); margin-bottom: 10px; }
+  .swatch .name { font-size: 13px; font-weight: 600; margin-bottom: 2px; }
+  .swatch .val { font-size: 11px; color: var(--c-ink-3); font-variant-numeric: tabular-nums; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+
+  /* Type */
+  .type-row { display: grid; grid-template-columns: 120px 1fr 200px; gap: 24px; align-items: baseline; padding: 20px 0; border-bottom: 1px solid var(--c-line); }
+  .type-row:last-child { border-bottom: none; }
+  .type-row .label { font-size: 12px; color: var(--c-ink-3); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+  .type-row .spec { font-size: 11px; color: var(--c-ink-3); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; text-align: right; }
+  .t-display { font-size: 40px; font-weight: 700; letter-spacing: -0.02em; line-height: 1.1; }
+  .t-h1 { font-size: 28px; font-weight: 700; letter-spacing: -0.015em; line-height: 1.2; }
+  .t-h2 { font-size: 22px; font-weight: 700; letter-spacing: -0.01em; line-height: 1.25; }
+  .t-h3 { font-size: 18px; font-weight: 600; line-height: 1.35; }
+  .t-body-lg { font-size: 16px; line-height: 1.55; }
+  .t-body { font-size: 14px; line-height: 1.55; color: var(--c-ink-2); }
+  .t-caption { font-size: 12px; color: var(--c-ink-3); }
+
+  /* Component tiles */
+  .tiles { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  @media (max-width: 780px) { .tiles { grid-template-columns: 1fr; } }
+  .tile { background: var(--c-surface); border: 1px solid var(--c-line); border-radius: 16px; padding: 28px; }
+  .tile .tile-label { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--c-ink-3); font-weight: 600; margin-bottom: 20px; }
+  .tile .tile-body { display: flex; flex-direction: column; gap: 16px; align-items: flex-start; min-height: 120px; justify-content: center; }
+  .tile-caption { margin-top: 20px; padding-top: 16px; border-top: 1px dashed var(--c-line); font-size: 12px; color: var(--c-ink-3); line-height: 1.5; }
+
+  /* component specimens */
+  .tag-chip { display: inline-flex; align-items: center; font-size: 11px; font-weight: 600; padding: 5px 9px; border-radius: 4px; background: var(--c-tag-bg); color: var(--c-tag-ink); }
+  .tag-chip.brand { background: var(--c-tag-brand-bg); color: var(--c-tag-brand-ink); }
+  .filter-chip { display: inline-flex; align-items: center; gap: 4px; font-size: 13px; font-weight: 500; padding: 8px 14px; border-radius: 999px; background: #fff; border: 1px solid var(--c-line-strong); color: var(--c-ink-1); cursor: pointer; }
+  .filter-chip.active { background: var(--c-ink-1); border-color: var(--c-ink-1); color: #fff; }
+  .filter-chip svg { width: 10px; height: 10px; }
+
+  .btn { display: inline-flex; align-items: center; justify-content: center; font-size: 15px; font-weight: 600; padding: 14px 22px; border-radius: 12px; border: none; cursor: pointer; }
+  .btn-primary { background: var(--c-brand); color: #fff; }
+  .btn-primary:disabled { background: #D7DCE4; color: #fff; cursor: not-allowed; }
+  .btn-secondary { background: #fff; color: var(--c-ink-1); border: 1px solid var(--c-line-strong); }
+  .btn-ghost { background: transparent; color: var(--c-brand); }
+
+  /* Hospital card mini */
+  .hcard { background: #fff; border: 1px solid var(--c-line); border-radius: 14px; padding: 14px; display: flex; gap: 12px; width: 100%; max-width: 340px; }
+  .hcard .thumb { width: 76px; height: 76px; border-radius: 10px; background: linear-gradient(135deg,#E2E8F0,#CBD5E1); flex-shrink: 0; position: relative; overflow: hidden; }
+  .hcard .thumb::after { content: ""; position: absolute; inset: 0; background: repeating-linear-gradient(45deg, transparent 0 6px, rgba(255,255,255,.35) 6px 7px); }
+  .hcard .hbody { flex: 1; min-width: 0; }
+  .hcard .hname { font-size: 15px; font-weight: 700; margin-bottom: 2px; letter-spacing: -0.01em; }
+  .hcard .haddr { font-size: 11px; color: var(--c-ink-3); margin-bottom: 4px; line-height: 1.45; }
+  .hcard .hdist { font-size: 12px; color: var(--c-brand); font-weight: 600; margin-bottom: 8px; display: inline-flex; align-items: center; gap: 3px; }
+  .hcard .hdist::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--c-brand); }
+  .hcard .htags { display: flex; gap: 4px; flex-wrap: wrap; }
+
+  .tab-nav { display: flex; background: #fff; border: 1px solid var(--c-line); border-radius: 16px; padding: 8px; gap: 4px; width: 100%; max-width: 340px; }
+  .tab-item { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 10px 4px; font-size: 11px; color: var(--c-ink-3); cursor: pointer; border-radius: 10px; font-weight: 500; }
+  .tab-item.active { color: var(--c-brand); background: var(--c-brand-50); font-weight: 600; }
+  .tab-item svg { width: 20px; height: 20px; }
+
+  /* map pin spec */
+  .pin { display: inline-block; width: 24px; height: 30px; position: relative; }
+  .pin::before { content: ""; position: absolute; inset: 0 0 4px 0; background: var(--c-brand); border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%; clip-path: polygon(50% 100%, 0 50%, 0 0, 100% 0, 100% 50%); border-radius: 50% 50% 0 0 / 55% 55% 0 0; transform: rotate(45deg) scale(.9); transform-origin: center; }
+
+  /* radii & shadow */
+  .radius-row { display: flex; gap: 16px; align-items: flex-end; flex-wrap: wrap; }
+  .radius-box { width: 80px; height: 80px; background: #fff; border: 1px solid var(--c-line); display: grid; place-items: center; font-size: 11px; color: var(--c-ink-3); font-family: ui-monospace, monospace; }
+
+  .shadow-row { display: flex; gap: 20px; flex-wrap: wrap; }
+  .shadow-box { width: 160px; height: 100px; background: #fff; border-radius: 12px; display: grid; place-items: center; font-size: 12px; color: var(--c-ink-2); }
+
+  /* Bottom sheet specimen */
+  .sheet-spec { width: 100%; max-width: 340px; background: #fff; border-radius: 20px 20px 0 0; padding: 14px 0 0; box-shadow: var(--sh-sheet); border: 1px solid var(--c-line); border-bottom: none; }
+  .sheet-spec .grip { width: 40px; height: 4px; border-radius: 999px; background: var(--c-line-strong); margin: 0 auto 12px; }
+  .sheet-spec .sheet-head { display: flex; justify-content: space-between; align-items: center; padding: 4px 20px 16px; border-bottom: 1px solid var(--c-line); }
+  .sheet-spec .sheet-title { font-size: 15px; font-weight: 700; }
+  .sheet-spec .sheet-x { width: 22px; height: 22px; border-radius: 999px; color: var(--c-ink-3); display: grid; place-items: center; }
+  .sheet-spec .sheet-content { padding: 16px 20px 24px; font-size: 13px; color: var(--c-ink-3); }
+</style>
+</head>
+<body>
+  <div class="page">
+    <div class="top">
+      <a class="back" href="index.html">← Back</a>
+      <div class="eyebrow" style="margin:0">검진-360 · DS v1</div>
+    </div>
+    <div class="eyebrow">Design System</div>
+    <h1>반려동물 병원 찾기 — 시스템</h1>
+    <p class="sub">레퍼런스의 정제된 파란색 액센트와 중립적인 카드 레이아웃을 체계화한 토큰·컴포넌트 라이브러리입니다.</p>
+
+    <!-- Colors -->
+    <section>
+      <div class="section-head"><h2>Color</h2><span class="meta">12 tokens · hex + oklch</span></div>
+      <div class="swatch-grid">
+        <div class="swatch"><div class="chip" style="background:#2563EB"></div><div class="name">Brand / Primary</div><div class="val">#2563EB</div></div>
+        <div class="swatch"><div class="chip" style="background:#1D4ED8"></div><div class="name">Brand / Pressed</div><div class="val">#1D4ED8</div></div>
+        <div class="swatch"><div class="chip" style="background:#EEF4FF"></div><div class="name">Brand / 50</div><div class="val">#EEF4FF</div></div>
+        <div class="swatch"><div class="chip" style="background:#DCE8FF"></div><div class="name">Brand / 100</div><div class="val">#DCE8FF</div></div>
+        <div class="swatch"><div class="chip" style="background:#0B1220"></div><div class="name">Ink / 1</div><div class="val">#0B1220</div></div>
+        <div class="swatch"><div class="chip" style="background:#4A5568"></div><div class="name">Ink / 2</div><div class="val">#4A5568</div></div>
+        <div class="swatch"><div class="chip" style="background:#8A95A5"></div><div class="name">Ink / 3</div><div class="val">#8A95A5</div></div>
+        <div class="swatch"><div class="chip" style="background:#B4BCC7"></div><div class="name">Ink / 4</div><div class="val">#B4BCC7</div></div>
+        <div class="swatch"><div class="chip" style="background:#E6E8EC"></div><div class="name">Line</div><div class="val">#E6E8EC</div></div>
+        <div class="swatch"><div class="chip" style="background:#F5F6F8"></div><div class="name">Surface / Bg</div><div class="val">#F5F6F8</div></div>
+        <div class="swatch"><div class="chip" style="background:#FFFFFF"></div><div class="name">Surface</div><div class="val">#FFFFFF</div></div>
+        <div class="swatch"><div class="chip" style="background:#0F9D58"></div><div class="name">Success</div><div class="val">#0F9D58</div></div>
+      </div>
+    </section>
+
+    <!-- Type -->
+    <section>
+      <div class="section-head"><h2>Typography</h2><span class="meta">Pretendard Variable</span></div>
+      <div class="type-row"><div class="label">display</div><div class="t-display">영상의학과 전문 동물병원</div><div class="spec">40 / 700 / -0.02em</div></div>
+      <div class="type-row"><div class="label">h1</div><div class="t-h1">지역별 병원 찾기</div><div class="spec">28 / 700 / -0.015em</div></div>
+      <div class="type-row"><div class="label">h2</div><div class="t-h2">24시타임 동물 메디컬센터</div><div class="spec">22 / 700 / -0.01em</div></div>
+      <div class="type-row"><div class="label">h3</div><div class="t-h3">병원찾기</div><div class="spec">18 / 600 / 0</div></div>
+      <div class="type-row"><div class="label">body-lg</div><div class="t-body-lg">엑스레이, 초음파를 보다 더 자세히 보고 싶다면</div><div class="spec">16 / 400 / 1.55</div></div>
+      <div class="type-row"><div class="label">body</div><div class="t-body">경기도 하남시 미사강변대로 222 미사 중앙프리미엄 202호</div><div class="spec">14 / 400 / 1.55</div></div>
+      <div class="type-row"><div class="label">caption</div><div class="t-caption">3.2 km · 2차 병원 · 영상의학과</div><div class="spec">12 / 400 / 1.45</div></div>
+    </section>
+
+    <!-- Radius + Spacing + Shadow -->
+    <section>
+      <div class="section-head"><h2>Radius · Shadow</h2><span class="meta">8 / 12 / 16 / 20</span></div>
+      <div class="radius-row">
+        <div class="radius-box" style="border-radius: 6px">6</div>
+        <div class="radius-box" style="border-radius: 8px">8</div>
+        <div class="radius-box" style="border-radius: 12px">12</div>
+        <div class="radius-box" style="border-radius: 16px">16</div>
+        <div class="radius-box" style="border-radius: 20px">20</div>
+        <div class="radius-box" style="border-radius: 999px">pill</div>
+      </div>
+      <div class="shadow-row" style="margin-top: 28px">
+        <div class="shadow-box" style="box-shadow: var(--sh-card)">sh-card</div>
+        <div class="shadow-box" style="box-shadow: var(--sh-float)">sh-float</div>
+        <div class="shadow-box" style="box-shadow: var(--sh-sheet)">sh-sheet</div>
+      </div>
+    </section>
+
+    <!-- Components -->
+    <section>
+      <div class="section-head"><h2>Components</h2><span class="meta">8 primary</span></div>
+      <div class="tiles">
+
+        <div class="tile">
+          <div class="tile-label">Buttons</div>
+          <div class="tile-body" style="flex-direction:row; flex-wrap:wrap; gap: 10px; align-items: center; min-height: auto;">
+            <button class="btn btn-primary">병원찾기</button>
+            <button class="btn btn-primary" disabled>병원찾기</button>
+            <button class="btn btn-secondary">지도로보기</button>
+          </div>
+          <div class="tile-caption">Primary 14px padding, radius 12. Disabled: neutral 300.</div>
+        </div>
+
+        <div class="tile">
+          <div class="tile-label">Filter chips</div>
+          <div class="tile-body" style="flex-direction:row; flex-wrap: wrap; gap: 8px; min-height: auto;">
+            <div class="filter-chip">여수·순천·광양 <svg viewBox="0 0 10 10"><path d="M1 3 L5 7 L9 3" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
+            <div class="filter-chip active">2차병원</div>
+            <div class="filter-chip">척사·벡사</div>
+            <div class="filter-chip">영상전공의</div>
+          </div>
+          <div class="tile-caption">Inactive: white / line. Active: ink-1. Caret = dropdown.</div>
+        </div>
+
+        <div class="tile">
+          <div class="tile-label">Tag chip (specialty)</div>
+          <div class="tile-body" style="flex-direction:row; flex-wrap: wrap; gap: 6px; min-height: auto;">
+            <span class="tag-chip brand">2차동물병원</span>
+            <span class="tag-chip brand">영상의학과전공의</span>
+            <span class="tag-chip">척사·벡사</span>
+            <span class="tag-chip">공공예송</span>
+            <span class="tag-chip">고양이친화병원</span>
+          </div>
+          <div class="tile-caption">2 variants: brand (emphasis) + neutral (default).</div>
+        </div>
+
+        <div class="tile">
+          <div class="tile-label">Hospital card</div>
+          <div class="tile-body">
+            <div class="hcard">
+              <div class="thumb"></div>
+              <div class="hbody">
+                <div class="hname">24시타임 동물 메디컬센터</div>
+                <div class="haddr">경기도 하남시 미사강변대로 222 미사 중앙프리미엄 202호</div>
+                <div class="hdist">3.2 km</div>
+                <div class="htags"><span class="tag-chip brand">2차동물병원</span><span class="tag-chip brand">영상의학과전공의</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="tile-caption">Thumb 76², radius 10. Whole card tappable.</div>
+        </div>
+
+        <div class="tile">
+          <div class="tile-label">Bottom tab nav</div>
+          <div class="tile-body">
+            <div class="tab-nav">
+              <div class="tab-item active">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M12 3v18M3 12h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+                검진
+              </div>
+              <div class="tab-item">
+                <svg viewBox="0 0 24 24" fill="none"><rect x="4" y="4" width="16" height="16" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M8 9h8M8 13h8M8 17h5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+                기록
+              </div>
+              <div class="tab-item">
+                <svg viewBox="0 0 24 24" fill="none"><rect x="4" y="5" width="16" height="15" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M4 10h16M9 3v4M15 3v4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+                일상
+              </div>
+              <div class="tab-item">
+                <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="1.6"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+                마이
+              </div>
+            </div>
+          </div>
+          <div class="tile-caption">4 items, active uses brand-50 pill.</div>
+        </div>
+
+        <div class="tile">
+          <div class="tile-label">Bottom sheet</div>
+          <div class="tile-body" style="align-items: stretch;">
+            <div class="sheet-spec">
+              <div class="grip"></div>
+              <div class="sheet-head">
+                <span class="sheet-title">지역선택</span>
+                <span class="sheet-x">✕</span>
+              </div>
+              <div class="sheet-content">grip · title · close · body slot</div>
+            </div>
+          </div>
+          <div class="tile-caption">Radius 20 top. Sheet shadow + grip handle.</div>
+        </div>
+
+        <div class="tile">
+          <div class="tile-label">Map pin</div>
+          <div class="tile-body" style="flex-direction: row; gap: 24px; align-items: center; min-height: auto;">
+            <svg width="28" height="36" viewBox="0 0 28 36"><path d="M14 0C6.3 0 0 6.3 0 14c0 10 14 22 14 22s14-12 14-22C28 6.3 21.7 0 14 0z" fill="#2563EB"/><circle cx="14" cy="14" r="5" fill="#fff"/></svg>
+            <svg width="28" height="36" viewBox="0 0 28 36"><path d="M14 0C6.3 0 0 6.3 0 14c0 10 14 22 14 22s14-12 14-22C28 6.3 21.7 0 14 0z" fill="#0B1220"/><circle cx="14" cy="14" r="5" fill="#fff"/></svg>
+            <svg width="20" height="20" viewBox="0 0 20 20"><circle cx="10" cy="10" r="8" fill="#2563EB" stroke="#fff" stroke-width="3"/></svg>
+          </div>
+          <div class="tile-caption">Brand pin (default), ink pin (selected), dot (cluster).</div>
+        </div>
+
+        <div class="tile">
+          <div class="tile-label">Region row</div>
+          <div class="tile-body" style="align-items: stretch;">
+            <div style="width: 100%; max-width: 340px; background:#fff; border:1px solid var(--c-line); border-radius: 12px; overflow: hidden;">
+              <div style="display: grid; grid-template-columns: 120px 1fr;">
+                <div style="border-right: 1px solid var(--c-line); background: var(--c-surface-alt);">
+                  <div style="padding: 14px 16px; font-size: 14px; font-weight: 600; color: var(--c-brand); background: #fff;">서울시</div>
+                  <div style="padding: 14px 16px; font-size: 14px; color: var(--c-ink-2);">인천·부천</div>
+                  <div style="padding: 14px 16px; font-size: 14px; color: var(--c-ink-2);">경기</div>
+                </div>
+                <div>
+                  <div style="padding: 14px 16px; font-size: 14px; display: flex; justify-content: space-between; align-items: center;"><span>전체</span><svg width="14" height="14" viewBox="0 0 14 14" style="color: var(--c-brand);"><path d="M3 7 L6 10 L11 4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+                  <div style="padding: 14px 16px; font-size: 14px; color: var(--c-ink-2);">강남</div>
+                  <div style="padding: 14px 16px; font-size: 14px; color: var(--c-ink-2);">강동</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="tile-caption">2-pane: province (left) → district (right). Check on selection.</div>
+        </div>
+
+      </div>
+    </section>
+
+  </div>
+</body>
+</html>
