@@ -110,8 +110,8 @@ body {
 }
 .tag-chip.brand {
   background: var(--c-tag-brand-bg);
-  /* color: var(--c-tag-brand-ink); */
-  color: var(--c-danger);
+  color: var(--c-tag-brand-ink);
+  /* color: var(--c-danger); */
 }
 
 /* Hospital card */
